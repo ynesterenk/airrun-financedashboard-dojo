@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Finance Dashboard - Dojo/Dijit</title>
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dijit/themes/claro/claro.css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/resources/Grid.css">
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojox/grid/resources/claroGrid.css">
+    <style>
+        html, body, #mainLayout {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Set overall page background to fully black */
+        html, body {
+            background-color: rgb(0, 0, 0);
+        }
+
+        :root {
+            --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+            "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+            "Courier New", monospace;
+            --default-font-family: var(--font-sans);
+            --default-mono-font-family: var(--font-mono);
+            /* Optional: Define text color if needed */
+            --color-text: #f8fafc;
+        }
+
+        /* Apply global font settings */
+        html, body {
+            font-family: var(--default-font-family);
+            font-size: 87.5%; /* reduces default 16px to ~14px */
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            color: var(--color-text);
+        }
+
+        /* Set widget (Dijit containers) backgrounds and borders */
+        .dijitContentPane,
+        .dijitBorderContainer,
+        .dijitTitlePane,
+        .dijitTab {
+            background-color: rgb(16, 24, 40) !important;
+            border: 1px solid rgb(255, 255, 255) !important;
+        }
+        #grid {
+            background-color: rgb(16, 24, 40);
+        }
+        .dojoxGridRow,
+        .dojoxGridCell {
+            background-color: rgb(16, 24, 40) !important;
+            color: var(--color-text); /* if you want to keep your text color consistent */
+        }
+
+        /* Style the search input */
+        input[type="text"] {
+            background-color: rgb(0, 0, 0); /* or black if you prefer */
+            color: #fff; /* text color */
+            border: 1px solid #fff; /* white border to match your theme */
+            padding: 0.5rem;       /* optional: add some padding */
+            border-radius: 0.25rem;/* optional: slightly rounded corners */
+            box-sizing: border-box;/* ensure padding doesn't overflow */
+        }
+
+        /* Style the placeholder text */
+        input[type="text"]::placeholder {
+            color: #ccc; /* lighter shade for placeholder */
+        }
+
+        /* For Chrome, Safari, and Edge (WebKit-based) */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgb(16,24,40);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: rgb(16,24,40);
+            border-radius: 10px; /* optional: rounds the scrollbar thumb */
+            border: 2px solid rgb(16,24,40); /* optional: creates padding around the thumb */
+        }
+
+        /* For Firefox */
+        * {
+            scrollbar-width: thin;
+            scrollbar-color: rgb(16,24,40) rgb(16,24,40);
+        }
+        /* Change the scroll-corner background for DojoX DataGrid */
+        .dojoxGrid .dojoxGridScrollbox .dojoxGridScrollCorner {
+            background-color: rgb(16, 24, 40) !important;
+        }
+        .dojoxGrid .dojoxGridMasterView .dojoxGridContent {
+            background-color: rgb(16,24,40) !important;
+        }
+        .dojoxGrid .dojoxGridMasterView .dojoxGridScrollbox {
+            background-color: rgb(16,24,40) !important;
+        }
+        <div id="grid" style="height:200px; overflow: hidden;"></div>
+    </style>
+
+</head>
+
+
+<body class="claro">
+<div id="mainLayout" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'">
+
+    <!-- Top area: Tabs -->
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" style="height: 60px">
+        <div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="tabPosition:'top', nested:true">
+            <div data-dojo-type="dijit/layout/ContentPane" title="RIC">RIC content</div>
+            <div data-dojo-type="dijit/layout/ContentPane" title="Topic">Topic content</div>
+            <div data-dojo-type="dijit/layout/ContentPane" title="Portfolio">Portfolio content</div>
+        </div>
+    </div>
+
+    <!-- Center: Main layout with 2 rows -->
+    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+        <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'" style="height:100%">
+
+            <!-- Top part: News feeds -->
+            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" style="height: 120px">
+                <h2>News Feeds</h2>
+                <input type="text" placeholder="Search news..." style="width: 100%;">
+                <ul>
+                    <li>Europe’s Stock Surge Outpaces Wall Street in Historic Run</li>
+                    <li>Aid rushes into Myanmar after earthquake kills over 1,600, ravages cities</li>
+                    <li>Trump tells NBC he 'couldn't care less' if car makers hike prices due to tariffs</li>
+                </ul>
+            </div>
+
+            <!-- Bottom part: 3 columns -->
+            <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'center'">
+                <!-- Left grid -->
+                <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" style="width: 40%">
+                    <h3>Cross Asset Monitor</h3>
+                    <div id="grid" style="height:200px;"></div>
+                </div>
+                <!-- Left grid
+                <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" style="width: 40%">
+                    <h3>Cross Asset Monitor</h3>
+                    <table data-dojo-type="dojox/grid/DataGrid" data-dojo-id="grid" style="height:200px">
+                        <thead>
+                        <tr>
+                            <th field="ric">RIC</th>
+                            <th field="name">Name</th>
+                            <th field="last">Last</th>
+                            <th field="change">Price Change</th>
+                        </tr>
+                        </thead>
+                    </table>
+                </div>-->
+
+                <!-- Center chart -->
+                <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
+                    <h3>3-Month Price History</h3>
+                    <div id="historicalChart" style="width:100%; height:200px;"></div>
+                </div>
+            </div>
+
+            <!-- Bottom full-width chart -->
+            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'" style="height: 250px">
+                <h3>Intra Day Chart</h3>
+                <div id="intraDayChart" style="width:100%; height:200px;"></div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Dojo & Charting -->
+<script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
+        data-dojo-config="async: true, parseOnLoad: true"></script>
+<script>
+    require([
+        "dojo/parser", "dojox/grid/DataGrid", "dojo/data/ItemFileReadStore",
+        "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dijit/layout/TabContainer",
+        "dojox/charting/Chart2D", "dojox/charting/themes/Claro", "dojo/domReady!"
+    ], function(parser, DataGrid, ItemFileReadStore, BorderContainer, ContentPane, TabContainer, Chart2D, theme) {
+        parser.parse();
+        var gridData = {
+            identifier: 'ric',
+            label: 'ric',
+            items: [
+                { ric: ".NDX", name: "NASDAQ 100", last: 15010.43, change: "+0.00" },
+                { ric: ".FTSE", name: "FTSE 100 INDEX", last: 7455.68, change: "-0.14%" },
+                { ric: ".HSI", name: "HANG SENG INDEX", last: 16993.44, change: "-2.08%" },
+                { ric: ".VOO", name: "VANGUARD S&P 500 ETF", last: 511.14, change: "+1.08%" },
+                { ric: ".DAX", name: "DAX INDEX", last: 22539.61, change: "+3.08%" },
+                { ric: ".PX1", name: "CAC 40 INDEX", last: 7876.36, change: "-2.18%" }
+            ]
+        };
+
+        var store = new ItemFileReadStore({ data: gridData });
+
+        var grid = new DataGrid({
+            store: store,
+            structure: [
+                { name: "RIC", field: "ric", width: "80px" },
+                { name: "Name", field: "name", width: "180px" },
+                { name: "Last", field: "last", width: "100px" },
+                { name: "Price Change", field: "change", width: "200px" }
+            ],
+            autoHeight: false
+        }, "grid");
+
+        grid.startup();
+
+        // Update the theme to change chart background colors:
+        theme.chart.fill = "rgb(16,24,40)";
+        theme.chart.stroke = { color: "rgb(16,24,40)", width: 0 };
+        theme.plotarea.fill = "rgb(16,24,40)";
+        theme.plotarea.stroke = null;
+        // Simple chart setup example
+        var chart1 = new Chart2D("historicalChart");
+        chart1.setTheme(theme);
+        chart1.addPlot("default", { type: "Lines", markers: true });
+        chart1.addAxis("x", { labels: [] });
+        chart1.addAxis("y", { vertical: true });
+        chart1.addSeries("Prices", [120, 121, 119, 118, 122]);
+        chart1.render();
+        chart1.resize();
+
+        var chart2 = new Chart2D("intraDayChart");
+        chart2.setTheme(theme);
+        chart2.addPlot("default", { type: "Lines", tension: "S" });
+        chart2.addAxis("x", {});
+        chart2.addAxis("y", { vertical: true });
+        chart2.addSeries("Intraday", [110.2, 111.9, 110.5, 109.7, 108.6]);
+        chart2.render();
+        chart1.resize();
+    });
+</script>
+</body>
+</html>

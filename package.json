@@ -1,0 +1,15 @@
+{
+  "name": "finance-dashboard-dojo",
+  "version": "1.0.0",
+  "description": "A simple Dojo + Dijit app",
+  "main": "public/index.html",
+  "scripts": {
+     "start": "live-server --mount=/public:./public --open=/public"
+  },
+  "author": "Yevgen",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
+    "live-server": "^1.2.2"
+  }
+}
