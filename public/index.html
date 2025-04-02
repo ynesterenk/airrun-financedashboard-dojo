@@ -11,12 +11,16 @@
             height: 100%;
             margin: 0;
             padding: 0;
+            border-radius: 10px; /* adjust as needed */
+            overflow: hidden;    /* ensures child content doesn't spill outside corners */
+            border: 2px solid #fff; /* optional: a white outer border, if desired */
         }
 
         /* Set overall page background to fully black */
         html, body {
             background-color: rgb(0, 0, 0);
         }
+
 
         :root {
             --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
@@ -32,10 +36,14 @@
         /* Apply global font settings */
         html, body {
             font-family: var(--default-font-family);
-            font-size: 87.5%; /* reduces default 16px to ~14px */
+            font-size: 80.5%; /* reduces default 16px to ~14px */
             line-height: 1.5;
             -webkit-text-size-adjust: 100%;
-            color: var(--color-text);
+            color: rgb(203,204,214) !important;
+        }
+        /* Force all tab labels to be gray */
+        .dijitTab .tabLabel {
+            color: #ccc !important;
         }
 
         /* Set widget (Dijit containers) backgrounds and borders */
@@ -101,60 +109,89 @@
         .dojoxGrid .dojoxGridMasterView .dojoxGridScrollbox {
             background-color: rgb(16,24,40) !important;
         }
-        <div id="grid" style="height:200px; overflow: hidden;"></div>
+        /* Target the grid header cells */
+        .dojoxGrid .dojoxGridHeader .dojoxGridCell {
+            color: #ccc !important;
+        }
+
+        /* Remove borders from child panes so only the outer border is visible */
+        #mainLayout .dijitContentPane,
+        #mainLayout .dijitBorderContainer {
+            border-radius: 10px; /* adjust as needed */
+            overflow: hidden;    /* ensures child content doesn't spill outside corners */
+            border: 2px solid #fff; /* optional: a white outer border, if desired */
+        }
     </style>
 
 </head>
 
 
 <body class="claro">
-<div id="mainLayout" data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'">
 
-    <!-- Top area: Tabs -->
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" style="height: 60px">
-        <div data-dojo-type="dijit/layout/TabContainer" data-dojo-props="tabPosition:'top', nested:true">
-            <div data-dojo-type="dijit/layout/ContentPane" title="RIC">RIC content</div>
-            <div data-dojo-type="dijit/layout/ContentPane" title="Topic">Topic content</div>
-            <div data-dojo-type="dijit/layout/ContentPane" title="Portfolio">Portfolio content</div>
+<!-- Top-level BorderContainer -->
+<div
+        id="mainLayout"
+        data-dojo-type="dijit/layout/BorderContainer"
+        data-dojo-props="design:'headline'"
+        style="height: 100%;"
+>
+    <!-- Single widget at the top: a BorderContainer for tabs & news -->
+    <div
+            data-dojo-type="dijit/layout/BorderContainer"
+            data-dojo-props="region:'top', design:'headline'"
+            style="height: 200px;"
+    >
+        <!-- TOP region of that widget: Tabs -->
+        <div
+                data-dojo-type="dijit/layout/ContentPane"
+                data-dojo-props="region:'top'"
+                style="height:60px;"
+        >
+            <div
+                    data-dojo-type="dijit/layout/TabContainer"
+                    data-dojo-props="tabPosition:'top', nested:true"
+            >
+                <div data-dojo-type="dijit/layout/ContentPane" title="RIC">RIC content</div>
+                <div data-dojo-type="dijit/layout/ContentPane" title="Topic">Topic content</div>
+                <div data-dojo-type="dijit/layout/ContentPane" title="Portfolio">Portfolio content</div>
+            </div>
+        </div>
+
+        <!-- CENTER region of that widget: News Feeds -->
+        <div
+                data-dojo-type="dijit/layout/ContentPane"
+                data-dojo-props="region:'center'"
+        >
+            <h2>News Feeds</h2>
+            <input type="text" placeholder="Search news..." style="width: 100%;">
+            <ul>
+                <li>Europe’s Stock Surge Outpaces Wall Street in Historic Run</li>
+                <li>Aid rushes into Myanmar after earthquake kills over 1,600, ravages cities</li>
+                <li>Trump tells NBC he 'couldn't care less' if car makers hike prices due to tariffs</li>
+            </ul>
         </div>
     </div>
 
-    <!-- Center: Main layout with 2 rows -->
-    <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
-        <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="design:'headline'" style="height:100%">
-
-            <!-- Top part: News feeds -->
-            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'top'" style="height: 120px">
-                <h2>News Feeds</h2>
-                <input type="text" placeholder="Search news..." style="width: 100%;">
-                <ul>
-                    <li>Europe’s Stock Surge Outpaces Wall Street in Historic Run</li>
-                    <li>Aid rushes into Myanmar after earthquake kills over 1,600, ravages cities</li>
-                    <li>Trump tells NBC he 'couldn't care less' if car makers hike prices due to tariffs</li>
-                </ul>
-            </div>
-
+    <!-- Center region for the rest of your layout -->
+    <div
+            data-dojo-type="dijit/layout/ContentPane"
+            data-dojo-props="region:'center'"
+    >
+        <div
+                data-dojo-type="dijit/layout/BorderContainer"
+                data-dojo-props="design:'headline'"
+                style="height:100%;"
+        >
             <!-- Bottom part: 3 columns -->
-            <div data-dojo-type="dijit/layout/BorderContainer" data-dojo-props="region:'center'">
+            <div
+                    data-dojo-type="dijit/layout/BorderContainer"
+                    data-dojo-props="region:'center'"
+            >
                 <!-- Left grid -->
                 <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" style="width: 40%">
                     <h3>Cross Asset Monitor</h3>
                     <div id="grid" style="height:200px;"></div>
                 </div>
-                <!-- Left grid
-                <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'left'" style="width: 40%">
-                    <h3>Cross Asset Monitor</h3>
-                    <table data-dojo-type="dojox/grid/DataGrid" data-dojo-id="grid" style="height:200px">
-                        <thead>
-                        <tr>
-                            <th field="ric">RIC</th>
-                            <th field="name">Name</th>
-                            <th field="last">Last</th>
-                            <th field="change">Price Change</th>
-                        </tr>
-                        </thead>
-                    </table>
-                </div>-->
 
                 <!-- Center chart -->
                 <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'">
@@ -164,14 +201,18 @@
             </div>
 
             <!-- Bottom full-width chart -->
-            <div data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'bottom'" style="height: 250px">
+            <div
+                    data-dojo-type="dijit/layout/ContentPane"
+                    data-dojo-props="region:'bottom'"
+                    style="height: 250px"
+            >
                 <h3>Intra Day Chart</h3>
                 <div id="intraDayChart" style="width:100%; height:200px;"></div>
             </div>
-
         </div>
     </div>
 </div>
+
 
 <!-- Dojo & Charting -->
 <script src="//ajax.googleapis.com/ajax/libs/dojo/1.10.4/dojo/dojo.js"
@@ -196,18 +237,72 @@
             ]
         };
 
+        var priceValues = [144.47, 149.43, 140.14, 140.11, 135.91, 133.23, 131.76, 136.24, 133.57, 137.71];
+        const priceHistory = priceValues.map((price, index) => ({
+            x: index,
+            y: price
+        }));
+        var intradayValues = [{"date": "2025-03-28T09:30:00-04:00", "price": 111.66500091552734}, {"date": "2025-03-28T09:40:00-04:00", "price": 111.981201171875}, {"date": "2025-03-28T09:50:00-04:00", "price": 111.6500015258789},{"date": "2025-03-28T10:00:00-04:00", "price": 111.2698974609375}, {"date": "2025-03-28T10:10:00-04:00", "price": 110.30999755859375}, {"date": "2025-03-28T10:20:00-04:00", "price": 109.93499755859375}, {"date": "2025-03-28T10:30:00-04:00", "price": 109.45999908447266}, {"date": "2025-03-28T10:40:00-04:00", "price": 109.9749984741211}];
+        //const intradayValues = [{"date": "2025-03-28T09:30:00-04:00", "price": 111.66500091552734}, {"date": "2025-03-28T09:40:00-04:00", "price": 111.981201171875}, {"date": "2025-03-28T09:50:00-04:00", "price": 111.6500015258789}, {"date": "2025-03-28T10:00:00-04:00", "price": 111.2698974609375}, {"date": "2025-03-28T10:10:00-04:00", "price": 110.30999755859375}, {"date": "2025-03-28T10:20:00-04:00", "price": 109.93499755859375}, {"date": "2025-03-28T10:30:00-04:00", "price": 109.45999908447266}, {"date": "2025-03-28T10:40:00-04:00", "price": 109.9749984741211}, {"date": "2025-03-28T10:50:00-04:00", "price": 109.88500213623047}, {"date": "2025-03-28T11:00:00-04:00", "price": 109.44499969482422}, {"date": "2025-03-28T11:10:00-04:00", "price": 109.97010040283203}, {"date": "2025-03-28T11:20:00-04:00", "price": 109.53500366210938}, {"date": "2025-03-28T11:30:00-04:00", "price": 109.95999908447266}, {"date": "2025-03-28T11:40:00-04:00", "price": 110.07009887695312}, {"date": "2025-03-28T11:50:00-04:00", "price": 109.60070037841797}, {"date": "2025-03-28T12:00:00-04:00", "price": 109.73500061035156}, {"date": "2025-03-28T12:10:00-04:00", "price": 109.71990203857422}, {"date": "2025-03-28T12:20:00-04:00", "price": 109.40499877929688}, {"date": "2025-03-28T12:30:00-04:00", "price": 110.03500366210938}, {"date": "2025-03-28T12:40:00-04:00", "price": 109.77999877929688}, {"date": "2025-03-28T12:50:00-04:00", "price": 109.875}, {"date": "2025-03-28T13:00:00-04:00", "price": 109.54499816894531}, {"date": "2025-03-28T13:10:00-04:00", "price": 109.52110290527344}, {"date": "2025-03-28T13:20:00-04:00", "price": 109.7699966430664}, {"date": "2025-03-28T13:30:00-04:00", "price": 109.61499786376953}, {"date": "2025-03-28T13:40:00-04:00", "price": 109.63999938964844}, {"date": "2025-03-28T13:50:00-04:00", "price": 109.63829803466797}, {"date": "2025-03-28T14:00:00-04:00", "price": 109.79499816894531}, {"date": "2025-03-28T14:10:00-04:00", "price": 110.1449966430664}, {"date": "2025-03-28T14:20:00-04:00", "price": 110.01499938964844}, {"date": "2025-03-28T14:30:00-04:00", "price": 110.12000274658203}, {"date": "2025-03-28T14:40:00-04:00", "price": 110.04000091552734}, {"date": "2025-03-28T14:50:00-04:00", "price": 110.13999938964844}, {"date": "2025-03-28T15:00:00-04:00", "price": 110.41500091552734}, {"date": "2025-03-28T15:10:00-04:00", "price": 110.11499786376953}, {"date": "2025-03-28T15:20:00-04:00", "price": 110.16600036621094}, {"date": "2025-03-28T15:30:00-04:00", "price": 109.62000274658203}, {"date": "2025-03-28T15:40:00-04:00", "price": 109.56500244140625}, {"date": "2025-03-28T15:50:00-04:00", "price": 109.6050033569336}];
+        const intradayData = intradayValues.map((point, index) => ({
+            x: index,
+            y: point.price,
+            tooltip: `${point.date}: ${point.price.toFixed(2)}`
+        }));
         var store = new ItemFileReadStore({ data: gridData });
-
         var grid = new DataGrid({
             store: store,
             structure: [
-                { name: "RIC", field: "ric", width: "80px" },
-                { name: "Name", field: "name", width: "180px" },
-                { name: "Last", field: "last", width: "100px" },
-                { name: "Price Change", field: "change", width: "200px" }
+                {
+                    name: "RIC",
+                    field: "ric",
+                    width: "80px",
+                    // Gray text for RIC
+                    formatter: function(value){
+                        return `<span style="color: #ccc;">${value}</span>`;
+                    }
+                },
+                {
+                    name: "Name",
+                    field: "name",
+                    width: "180px",
+                    // Blue text for asset name
+                    formatter: function(value){
+                        return `<span style="color: #4ea8ff;">${value}</span>`;
+                    }
+                },
+                {
+                    name: "Last",
+                    field: "last",
+                    width: "100px",
+                    // Orange text for "Last" price
+                    formatter: function(value){
+                        return `<span style="color: #ffa500;">${value}</span>`;
+                    }
+                },
+                {
+                    name: "Price Change",
+                    field: "change",
+                    width: "200px",
+                    // Green if positive, red if negative, gray if zero or not recognized
+                    formatter: function(value){
+                        // Strip out non-numeric chars to parse the float
+                        var numericPart = value.replace(/[^\d.-]/g, '');
+                        var num = parseFloat(numericPart);
+
+                        if (isNaN(num) || num === 0) {
+                            return `<span style="color: #ccc;">${value}</span>`;
+                        } else if (num > 0) {
+                            return `<span style="color: #0f0;">${value}</span>`;
+                        } else {
+                            return `<span style="color: #f00;">${value}</span>`;
+                        }
+                    }
+                }
             ],
             autoHeight: false
         }, "grid");
+
 
         grid.startup();
 
@@ -222,7 +317,12 @@
         chart1.addPlot("default", { type: "Lines", markers: true });
         chart1.addAxis("x", { labels: [] });
         chart1.addAxis("y", { vertical: true });
-        chart1.addSeries("Prices", [120, 121, 119, 118, 122]);
+        chart1.addSeries("Prices", priceHistory, {
+            stroke: { color: "green", width: 2 },
+            marker: "circle",
+            markers: true,
+            fill: "rgb(109,117,233)" // fill for markers
+        });
         chart1.render();
         chart1.resize();
 
@@ -231,7 +331,12 @@
         chart2.addPlot("default", { type: "Lines", tension: "S" });
         chart2.addAxis("x", {});
         chart2.addAxis("y", { vertical: true });
-        chart2.addSeries("Intraday", [110.2, 111.9, 110.5, 109.7, 108.6]);
+        chart2.addSeries("Intraday", intradayData, {
+            stroke: { color: "rgb(109,117,233)", width: 2 },
+            marker: "circle",
+                markers: true,
+                fill: "rgb(109,117,233)" // fill for markers
+        });
         chart2.render();
         chart1.resize();
     });
