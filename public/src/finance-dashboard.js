@@ -2,10 +2,10 @@ require([
     "dojo/parser", "dojox/grid/DataGrid", "dojo/data/ItemFileReadStore",
     "dijit/layout/BorderContainer", "dijit/layout/ContentPane", "dijit/layout/TabContainer",
     "dojox/charting/Chart2D", "dojox/charting/themes/Claro", "dojo/domReady!",
-    "plugins/news",
-    "plugins/cross-assets",
-    "plugins/intraday-chart",
-    "plugins/history-chart"
+    "applications/news",
+    "applications/cross-assets",
+    "applications/intraday-chart",
+    "applications/history-chart"
 ], function(parser,
             DataGrid,
             ItemFileReadStore,
