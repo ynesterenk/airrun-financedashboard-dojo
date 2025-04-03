@@ -1,0 +1,114 @@
+html, body, #mainLayout {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    border-radius: 10px; /* adjust as needed */
+    overflow: hidden;    /* ensures child content doesn't spill outside corners */
+    border: 2px solid #fff; /* optional: a white outer border, if desired */
+}
+
+/* Set overall page background to fully black */
+html, body {
+    background-color: rgb(0, 0, 0);
+}
+
+
+:root {
+    --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+    --default-font-family: var(--font-sans);
+    --default-mono-font-family: var(--font-mono);
+    /* Optional: Define text color if needed */
+    --color-text: #f8fafc;
+}
+
+/* Apply global font settings */
+html, body {
+    font-family: var(--default-font-family);
+    font-size: 80.5%; /* reduces default 16px to ~14px */
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    color: rgb(203,204,214) !important;
+}
+/* Force all tab labels to be gray */
+.dijitTab .tabLabel {
+    color: #ccc !important;
+}
+
+/* Set widget (Dijit containers) backgrounds and borders */
+.dijitContentPane,
+.dijitBorderContainer,
+.dijitTitlePane,
+.dijitTab {
+    background-color: rgb(16, 24, 40) !important;
+    border: 1px solid rgb(255, 255, 255) !important;
+}
+#grid {
+    background-color: rgb(16, 24, 40);
+}
+.dojoxGridRow,
+.dojoxGridCell {
+    background-color: rgb(16, 24, 40) !important;
+    color: var(--color-text); /* if you want to keep your text color consistent */
+}
+
+/* Style the search input */
+input[type="text"] {
+    background-color: rgb(0, 0, 0); /* or black if you prefer */
+    color: #fff; /* text color */
+    border: 1px solid #fff; /* white border to match your theme */
+    padding: 0.5rem;       /* optional: add some padding */
+    border-radius: 0.25rem;/* optional: slightly rounded corners */
+    box-sizing: border-box;/* ensure padding doesn't overflow */
+}
+
+/* Style the placeholder text */
+input[type="text"]::placeholder {
+    color: #ccc; /* lighter shade for placeholder */
+}
+
+/* For Chrome, Safari, and Edge (WebKit-based) */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgb(16,24,40);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(16,24,40);
+    border-radius: 10px; /* optional: rounds the scrollbar thumb */
+    border: 2px solid rgb(16,24,40); /* optional: creates padding around the thumb */
+}
+
+/* For Firefox */
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(16,24,40) rgb(16,24,40);
+}
+/* Change the scroll-corner background for DojoX DataGrid */
+.dojoxGrid .dojoxGridScrollbox .dojoxGridScrollCorner {
+    background-color: rgb(16, 24, 40) !important;
+}
+.dojoxGrid .dojoxGridMasterView .dojoxGridContent {
+    background-color: rgb(16,24,40) !important;
+}
+.dojoxGrid .dojoxGridMasterView .dojoxGridScrollbox {
+    background-color: rgb(16,24,40) !important;
+}
+/* Target the grid header cells */
+.dojoxGrid .dojoxGridHeader .dojoxGridCell {
+    color: #ccc !important;
+}
+
+/* Remove borders from child panes so only the outer border is visible */
+#mainLayout .dijitContentPane,
+#mainLayout .dijitBorderContainer {
+    border-radius: 10px; /* adjust as needed */
+    overflow: hidden;    /* ensures child content doesn't spill outside corners */
+    border: 2px solid #fff; /* optional: a white outer border, if desired */
+}

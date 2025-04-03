@@ -4,7 +4,7 @@
   "description": "A simple Dojo + Dijit app",
   "main": "public/index.html",
   "scripts": {
-     "start": "live-server --mount=/public:./public --open=/public"
+    "start": "live-server --mount=/public:./public --open=/public"
   },
   "author": "Yevgen",
   "license": "MIT",

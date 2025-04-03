@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 /.idea
+/public/src/dijit
+/public/src/dijit-themes
+/public/src/dojo
+/public/src/dojox
+/public/src/util
 
 # testing
 /coverage
