@@ -48,7 +48,7 @@ define([
                 {
                     name: "Price Change",
                     field: "change",
-                    width: "200px",
+                    width: "400px",
                     formatter: function(value) {
                         var numericPart = value.replace(/[^\d.-]/g, '');
                         var num = parseFloat(numericPart);

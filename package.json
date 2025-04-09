@@ -4,12 +4,12 @@
   "description": "A simple Dojo + Dijit app",
   "main": "public/index.html",
   "scripts": {
-    "start": "live-server --mount=/public:./public --open=/public"
+    "start": "echo Starting Python server for ./public on http://127.0.0.1:8080 ... && python -m http.server --directory public 8080",
+    "comment": "If port 8080 is taken, change it here and in the echo message."
   },
   "author": "Yevgen",
   "license": "MIT",
   "dependencies": {},
   "devDependencies": {
-    "live-server": "^1.2.2"
   }
 }
