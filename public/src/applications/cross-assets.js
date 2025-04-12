@@ -3,6 +3,31 @@ define([
     "dojo/data/ItemFileReadStore"
 ], function(DataGrid, ItemFileReadStore) {
 
+    function formatRIC(value) {
+        return `<span style="color: #ccc;">${value}</span>`;
+    }
+
+    function formatName(value) {
+        return `<span style="color: #4ea8ff;">${value}</span>`;
+    }
+
+    function formatLast(value) {
+        return `<span style="color: #ffa500;">${value}</span>`;
+    }
+
+    function formatPriceChange(value) {
+        var numericPart = value.replace(/[^\d.-]/g, '');
+        var num = parseFloat(numericPart);
+
+        if (isNaN(num) || num === 0) {
+            return `<span style="color: #ccc;">${value}</span>`;
+        } else if (num > 0) {
+            return `<span style="color: #0f0;">${value}</span>`;
+        } else {
+            return `<span style="color: #f00;">${value}</span>`;
+        }
+    }
+
     function initializeCrossAssets() {
         var gridData = {
             identifier: 'ric',
@@ -25,42 +50,25 @@ define([
                     name: "RIC",
                     field: "ric",
                     width: "80px",
-                    formatter: function(value) {
-                        return `<span style="color: #ccc;">${value}</span>`;
-                    }
+                    formatter: formatRIC
                 },
                 {
                     name: "Name",
                     field: "name",
                     width: "180px",
-                    formatter: function(value) {
-                        return `<span style="color: #4ea8ff;">${value}</span>`;
-                    }
+                    formatter: formatName
                 },
                 {
                     name: "Last",
                     field: "last",
                     width: "100px",
-                    formatter: function(value) {
-                        return `<span style="color: #ffa500;">${value}</span>`;
-                    }
+                    formatter: formatLast
                 },
                 {
                     name: "Price Change",
                     field: "change",
                     width: "400px",
-                    formatter: function(value) {
-                        var numericPart = value.replace(/[^\d.-]/g, '');
-                        var num = parseFloat(numericPart);
-
-                        if (isNaN(num) || num === 0) {
-                            return `<span style="color: #ccc;">${value}</span>`;
-                        } else if (num > 0) {
-                            return `<span style="color: #0f0;">${value}</span>`;
-                        } else {
-                            return `<span style="color: #f00;">${value}</span>`;
-                        }
-                    }
+                    formatter: formatPriceChange
                 }
             ],
             autoHeight: false
