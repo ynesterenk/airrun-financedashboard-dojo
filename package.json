@@ -9,7 +9,9 @@
   },
   "author": "Yevgen",
   "license": "MIT",
-  "dependencies": {},
-  "devDependencies": {
-  }
+  "dependencies": {
+    "intern": "^4.8.6",
+    "chromedriver": "^91.0.1"
+  },
+  "devDependencies": {}
 }
