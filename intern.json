@@ -1,0 +1,27 @@
+{
+  "loader": {
+    "script": "node_modules/dojo-loader/loader.js",
+    "options": {
+      "packages": [
+        {
+          "name": "dojo",
+          "location": "public/src/dojo"
+        },
+        {
+          "name": "dijit",
+          "location": "public/src/dijit"
+        }
+      ]
+    }
+  },
+  "suites": [
+    "public/src/tests/cross-assets.test.js",
+    "public/src/tests/news.test.js",
+    "public/src/tests/history-chart.test.js",
+    "public/src/tests/intraday-chart.test.js"
+  ],
+  "functionalCoverage": false,
+  "serveOnly": false,
+  "baseUrl": "http://localhost:8000/",
+  "reporters": ["runner"]
+}
