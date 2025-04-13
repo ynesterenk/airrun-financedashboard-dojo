@@ -6,7 +6,7 @@
   "scripts": {
     "start": "echo Starting Python server for ./public on http://127.0.0.1:8080 ... && python -m http.server --directory public 8080",
     "comment": "If port 8080 is taken, change it here and in the echo message.",
-    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js public/src/tests/formatters.test.mjs",
+    "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test": "npm run test:unit"
   },
   "author": "Yevgen",
