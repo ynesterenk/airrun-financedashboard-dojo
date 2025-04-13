@@ -1,7 +1,15 @@
+// public/src/applications/cross-assets.js (Updated)
 define([
     "dojox/grid/DataGrid",
-    "dojo/data/ItemFileReadStore"
-], function(DataGrid, ItemFileReadStore) {
+    "dojo/data/ItemFileReadStore",
+    "./cross-assets-formatters" // <-- Require the new formatters module (relative path)
+], function(
+    DataGrid,
+    ItemFileReadStore,
+    formatters // <-- Get the formatters object
+) {
+
+    // Formatter functions are now defined in './formatters.js'
 
     function initializeCrossAssets() {
         var gridData = {
@@ -25,49 +33,44 @@ define([
                     name: "RIC",
                     field: "ric",
                     width: "80px",
-                    formatter: function(value) {
-                        return `<span style="color: #ccc;">${value}</span>`;
-                    }
+                    // Use the imported formatter function
+                    formatter: formatters.formatRIC
                 },
                 {
                     name: "Name",
                     field: "name",
                     width: "180px",
-                    formatter: function(value) {
-                        return `<span style="color: #4ea8ff;">${value}</span>`;
-                    }
+                    // Use the imported formatter function
+                    formatter: formatters.formatName
                 },
                 {
                     name: "Last",
                     field: "last",
                     width: "100px",
-                    formatter: function(value) {
-                        return `<span style="color: #ffa500;">${value}</span>`;
-                    }
+                    // Use the imported formatter function
+                    formatter: formatters.formatLast
                 },
                 {
                     name: "Price Change",
                     field: "change",
                     width: "400px",
-                    formatter: function(value) {
-                        var numericPart = value.replace(/[^\d.-]/g, '');
-                        var num = parseFloat(numericPart);
-
-                        if (isNaN(num) || num === 0) {
-                            return `<span style="color: #ccc;">${value}</span>`;
-                        } else if (num > 0) {
-                            return `<span style="color: #0f0;">${value}</span>`;
-                        } else {
-                            return `<span style="color: #f00;">${value}</span>`;
-                        }
-                    }
+                    // Use the imported formatter function
+                    formatter: formatters.formatPriceChange
                 }
             ],
-            autoHeight: false
-        }, "grid");
+            autoHeight: false // Assuming this should be false based on original code
+        }, "grid"); // Assuming the target node ID is "grid"
 
-        grid.startup();
+        // Ensure grid startup is called IF the target node ("grid") exists
+        // Note: In a real app, you'd likely pass the node or ID into this function
+        if (document.getElementById("grid")) {
+            grid.startup();
+        } else {
+            // Optionally handle the case where the grid node doesn't exist yet
+            // console.warn("Grid node 'grid' not found for startup in initializeCrossAssets.");
+        }
     }
 
+    // Return the initialization function
     return initializeCrossAssets;
 });

@@ -22,14 +22,6 @@ require([
 ) {
 
     console.log("--- finance-dashboard.js: Require callback executing ---");
-    // **** ADD/MODIFY LOGS ****
-    console.log("typeof parser:", typeof parser); // Expect function or object
-    console.log("typeof DataGrid:", typeof DataGrid); // Expect function
-    console.log("typeof initializeNews:", typeof initializeNews); // CURRENTLY OBJECT - PROBLEM
-    console.log("typeof initializeCrossAssets:", typeof initializeCrossAssets); // WHAT IS THIS?
-    console.log("typeof initializeIntradayChart:", typeof initializeIntradayChart); // WHAT IS THIS?
-    console.log("typeof initializeHistoryChart:", typeof initializeHistoryChart); // WHAT IS THIS?
-    // *************************
 
     parser.parse();
 
