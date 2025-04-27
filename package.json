@@ -4,15 +4,20 @@
   "description": "A simple Dojo + Dijit app",
   "main": "public/index.html",
   "scripts": {
-    "start": "echo Starting Python server for ./public on http://127.0.0.1:8080 ... && python -m http.server --directory public 8080",
-    "comment": "If port 8080 is taken, change it here and in the echo message.",
+    "start": "python -m http.server --directory public 8080",
+
+    "cy:run": "cypress run",
+
+    "e2e": "start-server-and-test start http://127.0.0.1:8080 cy:run",
+
     "test:unit": "node --experimental-vm-modules node_modules/jest/bin/jest.js",
     "test": "npm run test:unit"
   },
   "author": "Yevgen",
   "license": "MIT",
   "devDependencies": {
-    "cypress": "^14.3.0",
-    "jest": "^29.7.0"
+    "cypress": "^14.3.2",
+    "jest": "^29.7.0",
+    "start-server-and-test": "^2.0.11"
   }
 }
